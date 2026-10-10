@@ -16,6 +16,7 @@
       <div class="editor-toolbar"><div class="editor-toolbar-left"><span class="editor-file"><span class="python-glyph">Py</span><span>${esc(state.filename)}</span></span><span class="editor-status" data-status-for="${id}"><span class="editor-status-dot"></span><span data-status-label="${id}">Python loads when you run code</span></span></div>
         <div class="editor-toolbar-right">
           <button class="button button-primary" type="button" data-action="run">▶ Run Code <span class="run-tip">Ctrl ↵</span></button>
+          <button class="button button-quiet" type="button" data-action="retry" title="Retry Python if it failed to load">Retry Python</button>
           <button class="button button-secondary" type="button" data-action="stop" disabled>■ Stop</button>
           <button class="button button-quiet" type="button" data-action="reset">Reset Code</button>
           <button class="button button-quiet" type="button" data-action="copy">Copy</button>
@@ -114,6 +115,7 @@
     }
     async function act(action) {
       if (action==='run') run();
+      else if (action==='retry') { message('Starting Python again…'); setStatus('loading','Loading Python…'); window.PyTrailRunner.restart(); }
       else if (action==='stop') { if (window.PyTrailRunner.stop()) { state.busy=false; setStatus('loading','Restarting…'); } }
       else if (action==='reset') { state.code.value=starter; state.inputConfirmedCode=null; refreshGutter(); saveDraft(false); clearOutput(); message('Starter code restored.'); }
       else if (action==='clear') clearOutput();
