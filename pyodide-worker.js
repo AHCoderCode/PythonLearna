@@ -52,7 +52,7 @@ self.addEventListener('message', async event => {
     stdinCharacters = [];
     pyodide.setStdin({isatty:true, stdin() {
       if (!stdinCharacters.length) {
-        if (!stdinQueue.length) return null;
+        if (!stdinQueue.length) return undefined;
         stdinCharacters = Array.from(stdinQueue.shift() + "\n");
       }
       return stdinCharacters.shift().codePointAt(0);
