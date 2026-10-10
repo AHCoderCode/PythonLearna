@@ -49,11 +49,11 @@ self.addEventListener('message', async event => {
     decoderOut.decode(); decoderErr.decode();
     installStreams();
     // Pyodide's stdin callback consumes one character at a time, not one whole line.
-    let stdinCharacters = [];
+    stdinCharacters = [];
     pyodide.setStdin({isatty:true, stdin() {
       if (!stdinCharacters.length) {
         if (!stdinQueue.length) return null;
-        stdinCharacters = Array.from(stdinQueue.shift() + "\\n");
+        stdinCharacters = Array.from(stdinQueue.shift() + "\n");
       }
       return stdinCharacters.shift().codePointAt(0);
     }});
