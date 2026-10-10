@@ -46,7 +46,7 @@
   function createWorker() {
     try {
       terminateWorker();
-      const current = new Worker(new URL('js/pyodide-worker.js', location.href.split('#')[0]));
+      const current = new Worker(new URL('pyodide-worker.js', location.href.split('#')[0]));
       worker = current;
       current.addEventListener('message', handleMessage);
       current.addEventListener('error', event => handleWorkerError(current, event));
