@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111318">
+  <meta name="description" content="A free, interactive Python academy with browser-based coding, guided lessons, exercises, projects, and local progress saving.">
+  <title>PyTrail Academy — Learn Python by doing</title>
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/editor.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script defer src="data/curriculum.js"></script>
+  <script defer src="data/exercises.js"></script>
+  <script defer src="data/projects.js"></script>
+  <script defer src="data/reference.js"></script>
+  <script defer src="js/storage.js"></script>
+  <script defer src="js/progress.js"></script>
+  <script defer src="js/python-runner.js"></script>
+  <script defer src="js/editor.js"></script>
+  <script defer src="js/exercises.js"></script>
+  <script defer src="js/quizzes.js"></script>
+  <script defer src="js/projects.js"></script>
+  <script defer src="js/search.js"></script>
+  <script defer src="js/router.js"></script>
+  <script defer src="js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <div class="brand-row">
+        <a class="brand" href="#dashboard" aria-label="PyTrail Academy home">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M18 4 29 10.4v13.2L18 30 7 23.6V10.4Z" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="m13 14 5-3 5 3v8l-5 3-5-3Z" fill="currentColor" opacity=".9"/><path d="M18 11v14" stroke="#17151f" stroke-width="1.6"/></svg></span>
+          <span class="brand-copy"><strong>PyTrail</strong><small>ACADEMY</small></span>
+        </a>
+        <button class="icon-button mobile-close" id="close-sidebar" type="button" aria-label="Close navigation">×</button>
+      </div>
+
+      <button class="search-trigger" id="open-search" type="button"><span aria-hidden="true">⌕</span><span>Search anything...</span><kbd>Ctrl K</kbd></button>
+
+      <nav class="primary-nav" aria-label="Main sections">
+        <p class="nav-label">LEARN</p>
+        <a href="#dashboard" class="nav-link" data-route="dashboard"><span class="nav-icon">⌂</span>Dashboard</a>
+        <a href="#curriculum" class="nav-link" data-route="curriculum"><span class="nav-icon">▤</span>Course curriculum <span class="nav-counter" id="sidebar-lesson-count">0</span></a>
+        <a href="#playground" class="nav-link" data-route="playground"><span class="nav-icon">⌘</span>Python Playground</a>
+        <a href="#exercises" class="nav-link" data-route="exercises"><span class="nav-icon">♧</span>Coding exercises</a>
+        <a href="#quizzes" class="nav-link" data-route="quizzes"><span class="nav-icon">✓</span>Quizzes</a>
+        <a href="#projects" class="nav-link" data-route="projects"><span class="nav-icon">◇</span>Projects</a>
+        <p class="nav-label nav-label-spaced">YOUR SPACE</p>
+        <a href="#bookmarks" class="nav-link" data-route="bookmarks"><span class="nav-icon">☆</span>Bookmarks & notes</a>
+        <a href="#cheatsheet" class="nav-link" data-route="cheatsheet"><span class="nav-icon">▦</span>Python cheat sheet</a>
+        <a href="#glossary" class="nav-link" data-route="glossary"><span class="nav-icon">Aa</span>Glossary</a>
+        <a href="#statistics" class="nav-link" data-route="statistics"><span class="nav-icon">↗</span>Learning statistics</a>
+        <a href="#achievements" class="nav-link" data-route="achievements"><span class="nav-icon">✧</span>Achievements</a>
+      </nav>
+
+      <div class="sidebar-progress">
+        <div class="progress-card-head"><span>Your learning path</span><strong id="sidebar-progress-number">0%</strong></div>
+        <div class="progress-track"><span id="sidebar-progress-bar" style="width:0%"></span></div>
+        <p id="sidebar-progress-caption">Every expert starts with one line.</p>
+        <a href="#curriculum" class="text-link">View curriculum <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="sidebar-bottom">
+        <div class="local-profile"><span class="avatar">P</span><span><strong>Local learner</strong><small>Progress stays on this device</small></span></div>
+        <button class="icon-button" id="open-settings" type="button" aria-label="Open settings" title="Settings">⚙</button>
+      </div>
+    </aside>
+    <div class="sidebar-scrim" id="sidebar-scrim" hidden></div>
+
+    <div class="main-column">
+      <header class="topbar">
+        <div class="topbar-left"><button class="icon-button mobile-menu" id="open-sidebar" type="button" aria-label="Open navigation">☰</button><span class="breadcrumb-root">PyTrail</span><span class="breadcrumb-divider">/</span><span id="breadcrumb-current">Dashboard</span></div>
+        <div class="topbar-right"><span class="offline-note"><span class="status-dot"></span>Free · No account</span><button class="icon-button" id="toggle-theme" type="button" aria-label="Toggle color theme" title="Toggle theme">☼</button><button class="topbar-avatar" id="topbar-settings" type="button" aria-label="Settings">P</button></div>
+      </header>
+      <main id="main-content" class="main-content" tabindex="-1">
+        <section class="loading-shell" id="app-loading" aria-live="polite"><div class="loading-orbit"></div><p>Preparing your learning space…</p></section>
+        <noscript><div class="notice notice-error">PyTrail Academy needs JavaScript enabled to run lessons, save progress, and use the Python Playground.</div></noscript>
+      </main>
+      <footer class="app-footer"><span>PyTrail Academy <span class="footer-separator">·</span> Learn by building, one step at a time.</span><a href="#settings">Privacy & settings</a></footer>
+    </div>
+  </div>
+
+  <dialog class="modal" id="search-dialog" aria-labelledby="search-title">
+    <div class="modal-head"><div><p class="eyebrow">QUICK FIND</p><h2 id="search-title">Search PyTrail</h2></div><button class="icon-button" type="button" data-close-dialog="search-dialog" aria-label="Close search">×</button></div>
+    <label class="search-field"><span aria-hidden="true">⌕</span><input id="global-search-input" type="search" placeholder="Search lessons, Python topics, projects…" autocomplete="off"><kbd>Esc</kbd></label>
+    <div id="global-search-results" class="search-results"><p class="muted-copy">Search the course, examples, projects, and glossary.</p></div>
+    <p class="modal-shortcut-note">Tip: press <kbd>Ctrl</kbd> + <kbd>K</kbd> from anywhere.</p>
+  </dialog>
+
+  <dialog class="modal" id="input-dialog" aria-labelledby="input-dialog-title">
+    <div class="modal-head"><div><p class="eyebrow">PROGRAM INPUT</p><h2 id="input-dialog-title">What should Python read?</h2><p class="muted-copy">Your program uses <code>input()</code>. Enter one response for each input call, in order.</p></div><button class="icon-button" type="button" data-close-dialog="input-dialog" aria-label="Close input dialog">×</button></div>
+    <form id="program-input-form"><div id="program-input-fields" class="input-fields"></div><label class="field-label" for="extra-stdin">Additional input lines <span class="muted-copy">(optional; one line per input)</span></label><textarea id="extra-stdin" rows="3" placeholder="Add more values, one per line, for loops or repeated input() calls"></textarea><div class="modal-actions"><button class="button button-quiet" type="button" data-close-dialog="input-dialog">Cancel</button><button class="button button-primary" type="submit">Run with these inputs <span aria-hidden="true">→</span></button></div></form>
+  </dialog>
+
+  <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>
