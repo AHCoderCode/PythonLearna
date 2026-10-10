@@ -2,6 +2,7 @@
 const PYODIDE_BASE = 'https://cdn.jsdelivr.net/pyodide/v314.0.7/full/';
 let pyodide = null;
 let stdinQueue = [];
+let stdinCharacters = [];
 let isRunning = false;
 let currentRunId = null;
 let currentOwnerId = null;
@@ -47,7 +48,15 @@ self.addEventListener('message', async event => {
     stdinQueue = Array.isArray(message.inputs) ? message.inputs.map(value => String(value)) : [];
     decoderOut.decode(); decoderErr.decode();
     installStreams();
-    pyodide.setStdin({isatty:true, stdin() { return stdinQueue.length ? stdinQueue.shift() : undefined; }});
+    // Pyodide's stdin callback consumes one character at a time, not one whole line.
+    let stdinCharacters = [];
+    pyodide.setStdin({isatty:true, stdin() {
+      if (!stdinCharacters.length) {
+        if (!stdinQueue.length) return null;
+        stdinCharacters = Array.from(stdinQueue.shift() + "\\n");
+      }
+      return stdinCharacters.shift().codePointAt(0);
+    }});
     send('state', {state:'running', runId:message.runId, message:'Running your code…'});
     try {
       // Load available Pyodide packages referenced by imports; standard-library code works without extra packages.
@@ -59,7 +68,7 @@ self.addEventListener('message', async event => {
     } finally {
       isRunning = false;
       currentRunId = null; currentOwnerId = null;
-      stdinQueue = [];
+      stdinQueue = []; stdinCharacters = [];
       send('state', {state:'ready'});
     }
   }
